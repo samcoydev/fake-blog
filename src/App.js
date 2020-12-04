@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { AvatarGenerator } from 'random-avatar-generator';
+import faker from 'faker';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import CommentDetail from './components/CommentDetail';
+import LoginCard from './components/LoginCard';
+
+class App extends Component {
+  render() {
+    const avatarGenerator = new AvatarGenerator();
+
+    return (
+      <div>
+        <LoginCard />
+        <div className="ui container comments">
+          <CommentDetail 
+            author={ faker.fake("{{name.firstName}} {{name.lastName}}") } 
+            avatar={ avatarGenerator.generateRandomAvatar() }
+            timeAgo={ faker.date.recent().toDateString() }
+            text={ faker.lorem.sentence() }
+          />
+          
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
